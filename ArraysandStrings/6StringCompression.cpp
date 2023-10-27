@@ -47,25 +47,27 @@ string compressTheString(string &s) {
 int compressLeet(vector<char> &s) {
     int n = s.size();
 
-    int i = 0, k = 0, j = 0;
+    int index = 0, i = 0;
 
     while (i < n) {
-        j = i;
-        while (j < n and s[i] == s[j]) {
-            j++;
+        char currChar = s[i];
+        int countt = 0;
+
+        // Duplicate count
+        while (i < n and currChar == s[i]) {
+            i++;
+            countt++;
         }
 
-        s[k++] = s[i]; // Modifying the array with character
-        if (j - i > 1) {
-            string a = to_string(j - i);
-            for (char x : a) {
-                s[k++] = x;
-            }
+        s[index++] = currChar;
+
+        if (countt > 1) {
+            string countStr = to_string(countt);
+            for (char &ch : countStr)
+                s[index++] = ch;
         }
-        i = j;
     }
-
-    return k;
+    return index;
 }
 // ================= BEST ====================
 
