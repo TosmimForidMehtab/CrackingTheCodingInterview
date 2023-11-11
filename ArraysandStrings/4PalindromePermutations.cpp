@@ -67,7 +67,28 @@ bool isPalindromePartitionBest2(string s) {
     return (oddCount <= 1);
 }
 // Using Bitvector
+int toggle(int bitVec, int idx) {
+    if (idx < 0)
+        return bitVec;
 
+    int mask = 1 << idx;
+    if ((bitVec & mask))
+        bitVec |= mask;
+    else
+        bitVec &= ~mask;
+
+    return bitVec;
+}
+bool isPalindromePartitionBestest(string s) {
+    int bitVec = 0;
+
+    for (char &ch : s) {
+        int x = ch - '0';
+
+        bitVec = toggle(bitVec, x);
+    }
+    return bitVec == 0 or (bitVec & (bitVec - 1)) == 0;
+}
 int32_t main() {
     fast;
     cout.setf(ios::boolalpha);
