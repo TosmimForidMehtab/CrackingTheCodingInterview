@@ -5,24 +5,13 @@
 #define fast ios::sync_with_stdio(0);cin.tie(0);cout.tie(0)
 // clang-format on
 using namespace std;
-class ListNode
-{
-public:
-    int data;
-    ListNode *next;
-    ListNode(int data)
-    {
-        this->data = data;
-        this->next = NULL;
-    }
-};
 // ================= Sorted LL ====================
 ListNode *deleteDuplicatesSorted(ListNode *head) {
     if (!head or !head->next)
         return head;
     ListNode *curr = head;
     while (curr and curr->next) {
-        if (curr->data == curr->next->data) {
+        if (curr->val == curr->next->val) {
             ListNode *nodeToDel = curr->next;
             curr->next = nodeToDel->next;
             delete nodeToDel;
@@ -36,7 +25,7 @@ ListNode *deleteDuplicatesSortedRec(ListNode *head) {
     if (head == NULL or head->next == NULL)
         return head;
     ListNode *newHead = deleteDuplicatesSortedRec(head->next);
-    if (head->data == newHead->data)
+    if (head->val == newHead->val)
         return newHead;
 
     head->next = newHead;
@@ -65,23 +54,9 @@ ListNode *deleteDuplicatesBrute(ListNode *head) {
 }
 // ================ Unsorted LL (Better) ===================
 // Sort the LL first and then aplly the algo for the sorted one
-// Use set to store the values O(N), O(N)
-ListNode *deleteDuplicatesBetter(ListNode *head) {
-    unordered_set<int> st;
-    ListNode *curr = head, *prev = NULL;
-    while (curr) {
-        if (st.find(curr->data) != st.end()) prev->next = curr->next;
-        else {
-            st.insert(curr->data);
-            prev = curr;
-        }
-        curr = curr->next;
-    }
-    return head;
-}
 
 // ================ Unsorted LL (Best) ===================
-ListNode *deleteDuplicatesBest(ListNode *head) {
+ListNode *deleteDuplicatesBetter(ListNode *head) {
     if (!head)
         return head;
 
